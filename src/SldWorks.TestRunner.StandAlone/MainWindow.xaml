@@ -1,0 +1,82 @@
+﻿<mah:MetroWindow x:Class="SldWorks.TestRunner.StandAlone.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:br="clr-namespace:CADApplication.TestRunner.StandAlone"
+        xmlns:local="clr-namespace:CADApplication.TestRunner.StandAlone"
+        xmlns:tr="clr-namespace:CADApplication.TestRunner.View;assembly=Revit.TestRunner"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d"
+        Title="TestRunner" Height="600" Width="800">
+    <Window.Resources>
+        <ResourceDictionary Source="pack://application:,,,/Revit.TestRunner;component/GlobalResources.xaml" />
+    </Window.Resources>
+    <mah:MetroWindow.LeftWindowCommands>
+        <mah:WindowCommands>
+            <Button Padding="4" ToolTip="Open up the GitHub site">
+                <Image Source="{StaticResource test_tube_4DrawingImage}"></Image>
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.LeftWindowCommands>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="110"/>
+            </Grid.RowDefinitions>
+            <TextBlock FontSize="17" Margin="5" FontWeight="Black" VerticalAlignment="Center" Grid.Row="0">
+                程序集列表:
+            </TextBlock>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <ListBox Margin="1" SelectedItem="{Binding SelectedRunner}" ItemsSource="{Binding Files}" BorderBrush="AliceBlue" BorderThickness="1">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding AssemblyPath}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                    <ToolBarPanel Grid.Column="1" Orientation="Vertical">
+                    <Button Width="35" Height="35" Command="{Binding OpenFolderCommand}">
+                        <Image Source="{StaticResource folderDrawingImage}" ToolTip="Open Folder"></Image>
+                    </Button>
+                    <Button Margin="0,10" Width="35" Height="35" Command="{Binding OpenFileCommand}">
+                        <Image Source="{StaticResource add__1_DrawingImage}" ToolTip="Add File"></Image>
+                    </Button>
+                    <Button Margin="0,10" Width="35" Height="35" >
+                        <Image Source="{StaticResource sq_deleteDrawingImage}" ToolTip="Add File"></Image>
+                    </Button>
+                </ToolBarPanel>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <mah:ToggleSwitch Margin="5,0" Name="_sldToggle" OffContent="Use Opening SolidWorks" OnContent="Start Multiple Instances"></mah:ToggleSwitch>
+                <Button HorizontalAlignment="Right" Width="75" Height="25" Margin="5,0" Content="RETRY"/>
+                <TextBlock Text="{Binding SldWorksMsg}" HorizontalAlignment="Right" FontSize="10" Margin="0,0,85,0" Height="10"/>
+                <StackPanel Grid.Row="1"
+                            Visibility="{Binding IsOn, ElementName=_sldToggle,Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Separator/>
+                    <TextBox Margin="5,2" Height="25" mah:TextBoxHelper.AutoWatermark="True" mah:TextBoxHelper.Watermark="实例数量" Text="{Binding Num}"/>
+                    <Button Margin="5,2" Padding="2" HorizontalAlignment="Right" Width="75" Height="30">
+                        <Image Source="{StaticResource run_cDrawingImage}"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <GridSplitter HorizontalAlignment="Right" Width="2" ResizeDirection="Columns"/>
+        <tr:NUnitRunnerView Grid.Column="1" BorderBrush="Gray" BorderThickness="1" DataContext="{Binding SelectedRunner}" Margin="5,5,5,5">
+        </tr:NUnitRunnerView>
+    </Grid>
+</mah:MetroWindow>

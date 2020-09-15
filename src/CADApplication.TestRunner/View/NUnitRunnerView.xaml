@@ -1,0 +1,101 @@
+﻿<UserControl x:Class="CADApplication.TestRunner.View.NUnitRunnerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:view="clr-namespace:CADApplication.TestRunner.View"
+             xmlns:testTreeView="clr-namespace:CADApplication.TestRunner.View.TestTreeView"
+             xmlns:res="clr-namespace:CADApplication.TestRunner.Properties"
+             mc:Ignorable="d" 
+             MinHeight="100" MinWidth="200" Background="#F7F7F7" FontFamily="{DynamicResource {x:Static SystemFonts.CaptionFontFamilyKey}}">
+             <!--d:DataContext="{d:DesignInstance view:NUnitRunnerViewModel, IsDesignTimeCreatable=True}"-->
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Revit.TestRunner;component/GlobalResources.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <!-- Theme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Red.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0">
+            <Image Margin="5,2" Source="{StaticResource test_tube_4DrawingImage}" DockPanel.Dock="Left"></Image>
+            <TextBlock  Text="{x:Static res:Resource.TestRunner}" FontSize="16" FontWeight="Bold"  VerticalAlignment="Bottom"/>
+            <TextBlock  Text="{Binding ProgramVersion}" FontSize="12" VerticalAlignment="Bottom" Margin="10,0,0,0"  />
+            <TextBlock  DockPanel.Dock="Right" FontSize="12"  HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <Hyperlink Command="{Binding OpenLogCommand}">
+                    <TextBlock Margin="0,0,5,0" Text="{x:Static res:Resource.OpenLog}" />
+                </Hyperlink>
+            </TextBlock>
+            <TextBlock  Margin="10,0" DockPanel.Dock="Right" FontSize="12"  HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <Hyperlink Command="{Binding OpenLogFloderCommand}">
+                    <TextBlock Text="{x:Static res:Resource.OpenFloder}" />
+                </Hyperlink>
+            </TextBlock>
+        </DockPanel>
+
+        <Grid Margin="0,5" Grid.Row="1" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="70"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" 
+                    Content="..." Width="50" Command="{Binding OpenAssemblyCommand}" ToolTip="Open Test Assembly"/>
+                <TextBox Margin="0,0,10,0" DockPanel.Dock="Left" Text="{Binding AssemblyPath}" IsReadOnly="True" />
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <testTreeView:TreeView DataContext="{Binding Tree}" />
+            <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch"/>
+            <FlowDocumentScrollViewer Grid.Row="2">
+                <FlowDocument>
+                    <Paragraph>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Style="{DynamicResource ImageStateStyle}"/>
+                            <TextBlock Margin="5,0" Background="#F7F7F7" Text="{Binding State}"/>
+                        </StackPanel>
+                    </Paragraph>
+                    <Paragraph>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="17" Visibility="{Binding Path=Text,ElementName=_time,Converter={StaticResource StringToVisibilityConverter}}" Source="{StaticResource timeDrawingImage}"></Image>
+                            <TextBlock Margin="5,0" Name="_time" Text="{Binding Tree.SelectedNode.TestTime}"/>
+                        </StackPanel>
+                    </Paragraph>
+                    <Paragraph>
+                        <TextBox BorderThickness="0" Margin="5,0" Background="#F7F7F7" Text="{Binding DetailInformation, Mode=OneWay}"
+                         IsReadOnly="True" MinHeight="50"
+                         FontFamily="Segoe UI"/>
+                    </Paragraph>
+                </FlowDocument>
+            </FlowDocumentScrollViewer>
+            
+        </Grid>
+        
+        <Grid Grid.Row="3" DockPanel.Dock="Bottom" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="120"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="{Binding ProgramState}"/>
+            <Button Padding="1" Grid.Column="1" BorderThickness="0.5"
+                    Width="70" Height="30" Command="{Binding DebugCommand}" 
+                    ToolTip="Run Selected">
+                <Image Source="{StaticResource run_cDrawingImage}"/>
+            </Button>
+        </Grid>
+    </Grid>
+</UserControl>
