@@ -1,22 +1,19 @@
 # SolidWorks.TestRunner
 
-SolidWorks.TestRunner is a simple Addin for SolidWorks. It runs unit tests from a specified test assembly, which have references to the Revit API. The test framework used is [NUnit v3](https://github.com/nunit).
-
-## How it works
-The SolidWorks.TestRunner is designed to work as an Addin of SolidWorks. This means you must start SolidWorks by yourself, start the SolidWorks.TestRunner, chose your favorite test assembly and run the selected tests. There is no need for the test assembly to have any reference to the TestRunner. All you have to do, is get the nuget package of NUnit and write some fancy tests.
+SolidWorks.TestRunner is a simple Addin for SolidWorks to run unit tests from a specified test assembly.
+ The test framework used is [NUnit v3](https://github.com/nunit).
 
 ## Install
+
+**[DownLoad](https://github.com/weianweigan/SldWorks.TestRunner/releases)**
 
 Click *.bat file to Install or UnInstall.
 
 <div>
-    <img width="300" src="images/installBat.png">
+    <img width="400" src="images/installBat.png">
 </div>
 
 ## Getting started
-Get the Code from github and compile it. The Revit.TestRunner.addin file will be automatically Registed. 
-
-It is also possible to download the pre compiled binaries. 
 
 The Addin hooks in the Taskpane of SolidWorks. 
 
@@ -36,7 +33,9 @@ Select the node you want to test and press the ‘Run’. All tests below the se
     <img height="600" src="images/executed.png">
 </div>
 
+
 ### Write Tests
+
 
 Create a test project in your solution and get the NUnit nuget package.
 
