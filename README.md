@@ -70,8 +70,8 @@ public class SampleTest
 }
 ```
 
-And now we are happy, almost. It would be nice if we can open a file in Revit and make some test with it. This is not easy because we need the `Application` API object of Revit, but we don’t have it available at this point. 
-To get the API object, change the signature of your Test Method. The Revit.TestFramework will inject the desired object in the Test, SetUp or TearDown Method. Supported Revit Objects: `UIApplication`, `Application`)
+And now we are happy, almost. It would be nice if we can open a file in SolidWorks and make some test with it. This is not easy because we need the `ISldWorks` API Interface of SolidWorks, but we don’t have it available at this point. 
+To get the API Interface, change the signature of your Test Method. The SldWorks.TestRunner will inject the desired object in the Test, SetUp or TearDown Method.
 
 ```c#
 [Test]
@@ -91,8 +91,8 @@ In your test, you have access to it, and your able to make stuff with it (ex. `s
 
 ## Thanks
 
-1. [Revit.TestRunner](https://github.com/geberit/Revit.TestRunner)
+1. Base on [Revit.TestRunner](https://github.com/geberit/Revit.TestRunner).
 
-2. [xcad](https://github.com/xarial/xcad)
+2. [xcad](https://github.com/xarial/xcad) used to implement a SolidWorks addin.
 
-3. [MahApps.Metro](https://github.com/MahApps/MahApps.Metro)
+3. [MahApps.Metro](https://github.com/MahApps/MahApps.Metro) -- UI Controls
